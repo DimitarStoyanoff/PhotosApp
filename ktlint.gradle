@@ -1,0 +1,1 @@
+apply from: "$rootDir/config/ktlint/ktlint-configuration.gradle"
