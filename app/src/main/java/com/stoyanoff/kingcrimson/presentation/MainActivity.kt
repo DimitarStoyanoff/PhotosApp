@@ -1,7 +1,8 @@
-package com.stoyanoff.kingcrimson
+package com.stoyanoff.kingcrimson.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.stoyanoff.kingcrimson.R
 
 class MainActivity : AppCompatActivity() {
 
