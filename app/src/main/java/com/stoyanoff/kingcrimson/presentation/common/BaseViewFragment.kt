@@ -35,18 +35,8 @@ abstract class BaseViewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initToolbar()
-
         initUi()
     }
-
-    override fun onStart() {
-        super.onStart()
-
-        hideSoftInput()
-    }
-
-    abstract fun initToolbar()
 
     abstract fun initUi()
 
@@ -100,13 +90,7 @@ abstract class BaseViewFragment : Fragment() {
         }
     }
 
-    protected fun showLoading() {
-
-    }
-
-    protected fun hideLoading() {
-
-    }
+    abstract fun toggleLoading(isVisible: Boolean)
 
     protected fun requestFocus(view: View) {
         view.postDelayed({

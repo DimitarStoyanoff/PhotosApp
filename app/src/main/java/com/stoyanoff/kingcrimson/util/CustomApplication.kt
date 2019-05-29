@@ -2,7 +2,9 @@ package com.stoyanoff.kingcrimson.util
 
 import android.app.Application
 import com.stoyanoff.kingcrimson.inject.appModule
+import com.stoyanoff.kingcrimson.inject.dataModule
 import com.stoyanoff.kingcrimson.inject.presentationModule
+import com.stoyanoff.kingcrimson.inject.useCaseModule
 import org.koin.android.ext.android.startKoin
 
 /**
@@ -19,6 +21,8 @@ class CustomApplication : Application(){
     private fun initDependencyInjectionFramework() {
         startKoin(this, listOf(
             appModule,
+            dataModule,
+            useCaseModule,
             presentationModule))
     }
 }

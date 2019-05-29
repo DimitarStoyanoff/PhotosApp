@@ -49,3 +49,53 @@ class RetrofitClient {
         return retrofitBuilder.build().create(serviceClass)
     }
 }
+
+
+class RetrofitRestClient {
+
+    companion object {
+        private const val SERVICE_TIMEOUT_SECONDS = 30
+    }
+
+    private val retrofitBuilder by lazy { Retrofit.Builder() }
+    private lateinit var httpClientBuilder: OkHttpClient.Builder
+
+     fun addCallAdapterFactory():RetrofitRestClient {
+        retrofitBuilder.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+
+        return this
+    }
+
+     fun addConverterFactory(): RetrofitRestClient {
+        val gson = GsonBuilder().setLenient().create()
+
+        retrofitBuilder.addConverterFactory(GsonConverterFactory.create(gson))
+
+        return this
+    }
+
+     fun addClient(): RetrofitRestClient {
+        httpClientBuilder = OkHttpClient.Builder()
+            .connectTimeout(SERVICE_TIMEOUT_SECONDS.toLong(), TimeUnit.SECONDS)
+            .readTimeout(SERVICE_TIMEOUT_SECONDS.toLong(), TimeUnit.SECONDS)
+            .retryOnConnectionFailure(true)
+            .writeTimeout(SERVICE_TIMEOUT_SECONDS.toLong(), TimeUnit.SECONDS)
+
+
+
+
+        retrofitBuilder.client(httpClientBuilder.build())
+
+        return this
+    }
+
+     fun baseUrl(baseUrl: String): RetrofitRestClient {
+        retrofitBuilder.baseUrl(baseUrl)
+
+        return this
+    }
+
+     fun <S> createService(serviceClass: Class<S>): S {
+        return retrofitBuilder.build().create(serviceClass)
+    }
+}

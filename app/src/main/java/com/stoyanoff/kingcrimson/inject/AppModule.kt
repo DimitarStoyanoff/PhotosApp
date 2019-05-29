@@ -3,6 +3,7 @@ package com.stoyanoff.kingcrimson.inject
 import com.stoyanoff.kingcrimson.BuildConfig
 import com.stoyanoff.kingcrimson.data.remote.RemoteService
 import com.stoyanoff.kingcrimson.data.remote.RetrofitClient
+import com.stoyanoff.kingcrimson.data.remote.RetrofitRestClient
 import org.koin.dsl.module.module
 
 /**
@@ -12,7 +13,7 @@ import org.koin.dsl.module.module
 
 val appModule = module {
     single<RemoteService> {
-        RetrofitClient()
+        RetrofitRestClient()
             .addCallAdapterFactory()
             .addConverterFactory()
             .addClient()
