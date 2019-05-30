@@ -8,6 +8,7 @@
               android:label="ProfileFragment"
               tools:layout="@layout/fragment_profile">
         <action android:id="@+id/action_profileFragment_to_albumsFragment" app:destination="@id/albumsFragment"/>
+        <action android:id="@+id/action_profileFragment_to_postsFragment" app:destination="@id/postsFragment"/>
     </fragment>
     <fragment android:id="@+id/albumsFragment"
               android:name="com.stoyanoff.kingcrimson.presentation.home.albums.AlbumsFragment"
@@ -22,4 +23,8 @@
               tools:layout="@layout/fragment_album_details">
         <argument android:name="albumdata" app:argType="com.stoyanoff.kingcrimson.data.model.album.Album"/>
     </fragment>
+    <fragment android:id="@+id/postsFragment"
+              android:name="com.stoyanoff.kingcrimson.presentation.home.posts.PostsFragment"
+              android:label="PostsFragment"
+              tools:layout="@layout/fragment_posts"/>
 </navigation>

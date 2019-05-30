@@ -12,6 +12,9 @@ import com.stoyanoff.kingcrimson.presentation.home.albums.AlbumsAdapter
 import com.stoyanoff.kingcrimson.presentation.home.albums.AlbumsFragmentDirections
 import com.stoyanoff.kingcrimson.presentation.home.albums.AlbumsViewModel
 import kotlinx.android.synthetic.main.fragment_albums.*
+import kotlinx.android.synthetic.main.fragment_albums.progressBar
+import kotlinx.android.synthetic.main.fragment_albums.recycler_view
+import kotlinx.android.synthetic.main.fragment_posts.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -32,6 +35,8 @@ class PostsFragment : BaseViewFragment() {
 
     override fun initViewModelStates() {
         handlePostsViewState()
+        handleNavigateToAddPost()
+
     }
 
     override fun toggleLoading(isVisible: Boolean) {
@@ -43,6 +48,7 @@ class PostsFragment : BaseViewFragment() {
     override fun initUi() {
         initAdapter()
         loadData()
+        initAddButton()
     }
 
     private fun loadData() {
@@ -50,8 +56,12 @@ class PostsFragment : BaseViewFragment() {
     }
 
     private fun initAdapter() {
-        postsAdapter.clickListener = {
-            viewModel.listItemClicked(it)
+        postsAdapter.deleteClickListener = {
+            viewModel.listItemDeleteClicked(it)
+        }
+
+        postsAdapter.editClickListener = {
+            viewModel.listItemEditClicked(it)
         }
 
         with(recycler_view){
@@ -72,6 +82,18 @@ class PostsFragment : BaseViewFragment() {
         })
     }
 
+    private fun initAddButton() {
+        add_image_view.setOnClickListener {
+            viewModel.addButtonClicked()
+        }
+    }
 
+    private fun handleNavigateToAddPost() {
+        viewModel.navigateToAddPost.observe(this, Observer {
+            it?.let {
+                navigateTo(R.id.action_profileFragment_to_postsFragment)
+            }
+        })
+    }
 
 }

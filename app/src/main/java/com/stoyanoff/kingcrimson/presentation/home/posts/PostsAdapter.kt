@@ -3,6 +3,7 @@ package com.stoyanoff.kingcrimson.presentation.home.posts
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.stoyanoff.kingcrimson.R
@@ -14,7 +15,8 @@ import com.stoyanoff.kingcrimson.data.model.post.Post
  */
 
 class PostsAdapter(
-    var clickListener: ((Post) -> Unit)? = null
+    var editClickListener: ((Post) -> Unit)? = null,
+    var deleteClickListener: ((Post) -> Unit)? = null
 ) : RecyclerView.Adapter<PostsAdapter.PostHolder>() {
 
 
@@ -44,23 +46,33 @@ class PostsAdapter(
         notifyItemInserted(posts.indexOf(item))
     }
 
+    fun deleteItem(item : Post) {
+        posts.remove(item)
+        notifyItemRemoved(posts.indexOf(item))
+    }
+
+
 
     inner class PostHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var postName = itemView.findViewById<TextView>(R.id.post_name_tv)
-        var post : Post? = null
+        private var post : Post? = null
 
+        private val postName = itemView.findViewById<TextView>(R.id.post_name_tv)
+        private val postBody = itemView.findViewById<TextView>(R.id.post_body_tv)
+        private val deleteView = itemView.findViewById<ImageView>(R.id.delete_view)
+        private val editView = itemView.findViewById<ImageView>(R.id.edit_view)
 
         fun bindPostItem(post: Post) {
-            postName.text = post.title
             this.post = post
-        }
+            postName.text = post.title
 
-        init{
-            itemView.setOnClickListener{
-                post?.let {
-                    clickListener?.invoke(post!!)
-                }
+            postBody.text = post.body
+
+            deleteView.setOnClickListener {
+                deleteClickListener?.invoke(post)
+            }
+            editView.setOnClickListener {
+                editClickListener?.invoke(post)
             }
         }
     }

@@ -6,6 +6,8 @@ import com.stoyanoff.kingcrimson.presentation.home.albums.albumdetails.AlbumDeta
 import com.stoyanoff.kingcrimson.presentation.home.albums.albumdetails.AlbumDetailsRepository
 import com.stoyanoff.kingcrimson.presentation.home.posts.PostsDataSource
 import com.stoyanoff.kingcrimson.presentation.home.posts.PostsRepository
+import com.stoyanoff.kingcrimson.presentation.home.profile.ProfileDataSource
+import com.stoyanoff.kingcrimson.presentation.home.profile.ProfileRepository
 import com.stoyanoff.kingcrimson.presentation.launch.login.LoginDataSource
 import com.stoyanoff.kingcrimson.presentation.launch.login.LoginRepository
 import org.koin.dsl.module.module
@@ -20,4 +22,5 @@ val dataModule = module {
     factory<AlbumsDataSource> { AlbumsRepository(get()) }
     factory<AlbumDetailsDataSource> {AlbumDetailsRepository(get())}
     factory<PostsDataSource> {PostsRepository(get())}
+    factory<ProfileDataSource> {ProfileRepository(get())}
 }

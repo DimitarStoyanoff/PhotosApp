@@ -24,6 +24,7 @@ class PostsViewModel(
         value = postsViewState
     }
 
+    val navigateToAddPost = MutableLiveData<Event<Boolean>>()
     private var posts = mutableListOf<Post>()
 
     fun loadData() {
@@ -43,6 +44,10 @@ class PostsViewModel(
                 }
             }
             .subscribeBy (onError = { error ->
+                viewState.value?.let {
+                    val newState = postsViewState.copy(showLoading = false)
+                    viewState.value = newState
+                }
             }, onNext = { result ->
                 result?.let {
                     posts = it
@@ -54,8 +59,15 @@ class PostsViewModel(
             })
     }
 
+    fun addButtonClicked() {
+        navigateToAddPost.value = Event(true)
+    }
 
-    fun listItemClicked(item : Post) {
+    fun listItemDeleteClicked(item : Post) {
+
+    }
+
+    fun listItemEditClicked(item : Post) {
 
     }
 }

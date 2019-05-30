@@ -25,7 +25,7 @@ val presentationModule = module {
     viewModel { LoginViewModel(get(), get()) }
     factory { LoginViewState() }
 
-    viewModel { ProfileViewModel(get()) }
+    viewModel { ProfileViewModel(get(), get()) }
     factory { ProfileViewState() }
 
     viewModel { AlbumsViewModel(get(), get()) }

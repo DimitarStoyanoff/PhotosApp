@@ -26,17 +26,27 @@ class ProfileFragment : BaseViewFragment() {
     }
 
     override fun initUi() {
-        initAlbumsButton()
+        initButtons()
+        loadUserData()
     }
 
     override fun initViewModelStates() {
         handleNavigateToAlbumsEvent()
+        handleNavigateToPostsEvent()
+        handleViewState()
     }
 
-    private fun initAlbumsButton() {
+    private fun initButtons() {
         button_albums.setOnClickListener {
             viewModel.albumsButtonClicked()
         }
+        button_posts.setOnClickListener {
+            viewModel.postsButtonClicked()
+        }
+    }
+
+    private fun loadUserData() {
+        viewModel.loadProfileData()
     }
 
     private fun handleNavigateToAlbumsEvent() {
@@ -47,11 +57,29 @@ class ProfileFragment : BaseViewFragment() {
         })
     }
 
+    private fun handleNavigateToPostsEvent() {
+        viewModel.navigateToPostsEvent.observe(this, Observer {event ->
+            event.getContentIfNotHandled()?.let {
+                navigateTo(R.id.action_profileFragment_to_postsFragment)
+            }
+        })
+    }
+
     override fun toggleLoading(isVisible: Boolean) {
         if(isVisible) {
             progressBar.visibility = View.VISIBLE
         } else progressBar.visibility = View.GONE
     }
-
+    private fun handleViewState() {
+        viewModel.viewState.observe(this, Observer {
+            toggleLoading(it.showLoading)
+            it.profile?.let { profile ->
+                username_tv.text = profile.name
+                profile.address?.let { address ->
+                    address_tv.text = address.city + ", " + address.street
+                }
+            }
+        })
+    }
 
 }
