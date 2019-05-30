@@ -1,5 +1,8 @@
 package com.stoyanoff.kingcrimson.inject
 
+import com.stoyanoff.kingcrimson.presentation.launch.login.LoginViewModel
+import com.stoyanoff.kingcrimson.presentation.launch.login.LoginViewState
+import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 
 /**
@@ -8,4 +11,6 @@ import org.koin.dsl.module.module
  */
 val presentationModule = module {
 
+    viewModel { LoginViewModel(get(), get()) }
+    factory { LoginViewState() }
 }

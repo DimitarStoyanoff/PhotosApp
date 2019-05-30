@@ -1,7 +1,9 @@
 package com.stoyanoff.kingcrimson.data.remote
 
 import com.google.gson.GsonBuilder
+import com.stoyanoff.kingcrimson.BuildConfig
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -33,6 +35,13 @@ class RetrofitClient {
 
     fun addClient(): RetrofitClient {
         httpClientBuilder = OkHttpClient.Builder()
+
+        if (BuildConfig.DEBUG) {
+            httpClientBuilder.addInterceptor(
+                HttpLoggingInterceptor()
+                    .setLevel(HttpLoggingInterceptor.Level.BODY)
+            )
+        }
 
         retrofitBuilder.client(httpClientBuilder.build())
 

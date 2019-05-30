@@ -72,6 +72,9 @@ dependencies {
     // Koin
     implementation deps.koin
 
+    // OkHttp
+    implementation deps.okhttp_logging_interceptor
+
     // Kotlin
     implementation deps.kotlin.stdlib
 

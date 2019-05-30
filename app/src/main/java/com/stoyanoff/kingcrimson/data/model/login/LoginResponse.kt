@@ -1,4 +1,4 @@
-package com.stoyanoff.kingcrimson.data.model.response
+package com.stoyanoff.kingcrimson.data.model.login
 
 import com.google.gson.annotations.SerializedName
 
