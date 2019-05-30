@@ -1,5 +1,7 @@
 package com.stoyanoff.kingcrimson.inject
 
+import com.stoyanoff.kingcrimson.presentation.home.profile.ProfileViewModel
+import com.stoyanoff.kingcrimson.presentation.home.profile.ProfileViewState
 import com.stoyanoff.kingcrimson.presentation.launch.login.LoginViewModel
 import com.stoyanoff.kingcrimson.presentation.launch.login.LoginViewState
 import org.koin.android.viewmodel.ext.koin.viewModel
@@ -13,4 +15,7 @@ val presentationModule = module {
 
     viewModel { LoginViewModel(get(), get()) }
     factory { LoginViewState() }
+
+    viewModel { ProfileViewModel(get()) }
+    factory { ProfileViewState() }
 }
