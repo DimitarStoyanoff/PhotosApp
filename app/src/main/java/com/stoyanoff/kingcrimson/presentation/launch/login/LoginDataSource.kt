@@ -1,6 +1,7 @@
 package com.stoyanoff.kingcrimson.presentation.launch.login
 
-import com.stoyanoff.kingcrimson.data.model.response.LoginResponse
+import com.stoyanoff.kingcrimson.data.model.login.LoginResponse
+import com.stoyanoff.kingcrimson.data.model.user.UserResponse
 import io.reactivex.Observable
 
 /**
@@ -9,5 +10,5 @@ import io.reactivex.Observable
  */
 interface LoginDataSource {
 
-    fun login(userId: String): Observable<LoginResponse>
+    fun login(userId: Int): Observable<UserResponse>
 }

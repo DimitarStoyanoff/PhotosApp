@@ -1,12 +1,15 @@
 package com.stoyanoff.kingcrimson.presentation.launch.login
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.stoyanoff.kingcrimson.presentation.common.BaseViewModel
 import com.stoyanoff.kingcrimson.presentation.common.Event
+import com.stoyanoff.kingcrimson.util.Logger
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import java.lang.NumberFormatException
 
 /**
  * Created by L on 28/05/2019.
@@ -25,7 +28,12 @@ class LoginViewModel(
     val navigateToHomeEvent =MutableLiveData<Event<Boolean>>()
 
     fun onLoginClicked(userId: String) {
-        compositeDisposable += loginUseCase.init(userId)
+        var id = 0
+        try {
+            id = Integer.parseInt(userId)
+        } catch (e: NumberFormatException) {
+        }
+        compositeDisposable += loginUseCase.init(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
@@ -43,13 +51,13 @@ class LoginViewModel(
             }
             .subscribeBy (onError = {
                 error ->
-
+                showErrorMessageEvent.value = Event("User doesn't exist")
             },
                 onNext = {
-                    it.token?.let {
+                    it.name?.let {
                         navigateToHomeEvent.value = Event(true)
                     } ?: run {
-                        showErrorMessageEvent.value = Event("") //TODO error handling
+                        showErrorMessageEvent.value = Event("User doesn't exist") //TODO error handling with error codes
                     }
                 })
     }

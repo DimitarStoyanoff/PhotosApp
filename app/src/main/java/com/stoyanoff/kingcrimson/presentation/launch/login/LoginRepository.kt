@@ -1,7 +1,8 @@
 package com.stoyanoff.kingcrimson.presentation.launch.login
 
-import com.stoyanoff.kingcrimson.data.model.request.LoginRequest
-import com.stoyanoff.kingcrimson.data.model.response.LoginResponse
+import com.stoyanoff.kingcrimson.data.model.login.LoginRequest
+import com.stoyanoff.kingcrimson.data.model.login.LoginResponse
+import com.stoyanoff.kingcrimson.data.model.user.UserResponse
 import com.stoyanoff.kingcrimson.data.remote.RemoteService
 import io.reactivex.Observable
 
@@ -13,7 +14,7 @@ class LoginRepository(
     private val remoteService: RemoteService
 ) : LoginDataSource {
 
-    override fun login(userId: String): Observable<LoginResponse> {
-        return remoteService.login(LoginRequest(userId))
+    override fun login(userId: Int): Observable<UserResponse> {
+        return remoteService.getUser(userId)
     }
 }

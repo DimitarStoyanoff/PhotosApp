@@ -7,7 +7,7 @@
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
+            android:inputType="numberSigned"
             android:hint="User ID"
             android:ems="10"
             android:id="@+id/user_id_et" android:layout_marginTop="8dp"

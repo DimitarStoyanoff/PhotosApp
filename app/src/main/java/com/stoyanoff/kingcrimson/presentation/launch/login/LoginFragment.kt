@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import com.stoyanoff.kingcrimson.R
 import com.stoyanoff.kingcrimson.presentation.launch.LaunchActivity
 import com.stoyanoff.kingcrimson.presentation.common.BaseViewFragment
+import com.stoyanoff.kingcrimson.presentation.home.HomeActivity
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -88,7 +89,7 @@ class LoginFragment : BaseViewFragment() {
     private fun handleNavigateToHomeEvent() {
         viewModel.navigateToHomeEvent.observe(this, Observer {event ->
             event.getContentIfNotHandled()?.let {
-                val intent = Intent(context, LaunchActivity::class.java)
+                val intent = Intent(context, HomeActivity::class.java)
                     .apply {
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     }
@@ -101,7 +102,7 @@ class LoginFragment : BaseViewFragment() {
 
     private fun initLoginButton() {
         login_button.setOnClickListener {
-            viewModel.onLoginClicked(user_id_et.text.toString())
+            viewModel.onLoginClicked((user_id_et.text.toString()))
         }
     }
 
