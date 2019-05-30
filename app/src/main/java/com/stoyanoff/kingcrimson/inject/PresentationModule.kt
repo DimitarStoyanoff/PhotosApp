@@ -1,5 +1,8 @@
 package com.stoyanoff.kingcrimson.inject
 
+import com.stoyanoff.kingcrimson.presentation.home.albums.AlbumsAdapter
+import com.stoyanoff.kingcrimson.presentation.home.albums.AlbumsViewModel
+import com.stoyanoff.kingcrimson.presentation.home.albums.AlbumsViewState
 import com.stoyanoff.kingcrimson.presentation.home.profile.ProfileViewModel
 import com.stoyanoff.kingcrimson.presentation.home.profile.ProfileViewState
 import com.stoyanoff.kingcrimson.presentation.launch.login.LoginViewModel
@@ -18,4 +21,8 @@ val presentationModule = module {
 
     viewModel { ProfileViewModel(get()) }
     factory { ProfileViewState() }
+
+    viewModel { AlbumsViewModel(get(), get()) }
+    factory { AlbumsViewState() }
+    factory { AlbumsAdapter() }
 }

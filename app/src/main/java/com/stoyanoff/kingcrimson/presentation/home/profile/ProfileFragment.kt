@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.stoyanoff.kingcrimson.R
 import com.stoyanoff.kingcrimson.presentation.common.BaseViewFragment
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -32,14 +33,18 @@ class ProfileFragment : BaseViewFragment() {
         handleNavigateToAlbumsEvent()
     }
 
-    fun initAlbumsButton() {
+    private fun initAlbumsButton() {
         button_albums.setOnClickListener {
             viewModel.albumsButtonClicked()
         }
     }
 
-    fun handleNavigateToAlbumsEvent() {
-
+    private fun handleNavigateToAlbumsEvent() {
+        viewModel.navigateToAlbumsEvent.observe(this, Observer {event ->
+            event.getContentIfNotHandled()?.let {
+                navigateTo(resId = R.id.action_profileFragment_to_albumsFragment)
+            }
+        })
     }
 
     override fun toggleLoading(isVisible: Boolean) {

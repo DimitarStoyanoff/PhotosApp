@@ -1,5 +1,7 @@
 package com.stoyanoff.kingcrimson.inject
 
+import com.stoyanoff.kingcrimson.presentation.home.albums.AlbumsDataSource
+import com.stoyanoff.kingcrimson.presentation.home.albums.AlbumsRepository
 import com.stoyanoff.kingcrimson.presentation.launch.login.LoginDataSource
 import com.stoyanoff.kingcrimson.presentation.launch.login.LoginRepository
 import org.koin.dsl.module.module
@@ -11,4 +13,5 @@ import org.koin.dsl.module.module
 val dataModule = module {
 
     factory<LoginDataSource> { LoginRepository(get()) }
+    factory<AlbumsDataSource> { AlbumsRepository(get()) }
 }
