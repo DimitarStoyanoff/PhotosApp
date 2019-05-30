@@ -1,4 +1,4 @@
-package com.stoyanoff.kingcrimson.presentation.home.albums
+package com.stoyanoff.kingcrimson.presentation.home.posts
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.stoyanoff.kingcrimson.R
 import com.stoyanoff.kingcrimson.presentation.common.BaseViewFragment
+import com.stoyanoff.kingcrimson.presentation.home.albums.AlbumsAdapter
+import com.stoyanoff.kingcrimson.presentation.home.albums.AlbumsFragmentDirections
+import com.stoyanoff.kingcrimson.presentation.home.albums.AlbumsViewModel
 import kotlinx.android.synthetic.main.fragment_albums.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -16,20 +19,19 @@ import org.koin.android.viewmodel.ext.android.viewModel
  * Created by L on 30/05/2019.
  *  Copyright (c) 2017 Centroida. All rights reserved.
  */
-class AlbumsFragment : BaseViewFragment() {
+class PostsFragment : BaseViewFragment() {
 
-    val viewModel: AlbumsViewModel by viewModel()
-    private val albumsAdapter: AlbumsAdapter by inject()
+    val viewModel: PostsViewModel by viewModel()
+    private val postsAdapter: PostsAdapter by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        fragmentView = inflater.inflate(R.layout.fragment_albums,container,false)
+        fragmentView = inflater.inflate(R.layout.fragment_posts,container,false)
 
         return fragmentView
     }
 
     override fun initViewModelStates() {
-        handleAlbumsViewState()
-        handleNavigateToDetailsEvent()
+        handlePostsViewState()
     }
 
     override fun toggleLoading(isVisible: Boolean) {
@@ -48,36 +50,28 @@ class AlbumsFragment : BaseViewFragment() {
     }
 
     private fun initAdapter() {
-        albumsAdapter.clickListener = {
+        postsAdapter.clickListener = {
             viewModel.listItemClicked(it)
         }
 
         with(recycler_view){
             layoutManager = LinearLayoutManager(activity)
-            adapter = albumsAdapter
+            adapter = postsAdapter
         }
     }
 
-    private fun handleAlbumsViewState() {
+    private fun handlePostsViewState() {
         viewModel.viewState.observe(this, Observer {
             if(it != null) {
                 toggleLoading(it.showLoading)
 
-                it.results?.let {albums ->
-                    albumsAdapter.setItems(albums)
+                it.data?.let {posts ->
+                    postsAdapter.setItems(posts)
                 }
             }
         })
     }
 
-    private fun handleNavigateToDetailsEvent() {
-        viewModel.navigateToAlbumDetails.observe(this, Observer {
-            it.getContentIfNotHandled()?.let {album ->
-                val action = AlbumsFragmentDirections.actionAlbumsFragmentToAlbumDetailsFragment(album)
-                navigateTo(action = action)
-            }
 
-        })
-    }
 
 }

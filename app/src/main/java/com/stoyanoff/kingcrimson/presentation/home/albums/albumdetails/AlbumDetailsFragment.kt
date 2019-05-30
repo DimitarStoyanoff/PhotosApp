@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.stoyanoff.kingcrimson.R
 import com.stoyanoff.kingcrimson.data.model.album.Album
+import com.stoyanoff.kingcrimson.data.model.photo.Photo
 import com.stoyanoff.kingcrimson.presentation.common.BaseViewFragment
 import kotlinx.android.synthetic.main.fragment_album_details.*
 import kotlinx.android.synthetic.main.fragment_album_details.progressBar
@@ -58,6 +59,19 @@ class AlbumDetailsFragment : BaseViewFragment() {
 
     override fun initViewModelStates() {
         handlePhotosViewState()
+        handlePhotoPreviewState()
+    }
+
+    private fun handlePhotoPreviewState() {
+        viewModel.previewPhotoState.observe(this, Observer {
+            it.getContentIfNotHandled()?.let {photo ->
+                previewPhoto(photo)
+            }
+        })
+    }
+
+    private fun previewPhoto(photo: Photo) {
+        //TODO
     }
 
     private fun handlePhotosViewState() {
