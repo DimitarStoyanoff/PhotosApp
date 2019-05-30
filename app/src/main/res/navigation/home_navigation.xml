@@ -11,5 +11,15 @@
     </fragment>
     <fragment android:id="@+id/albumsFragment"
               android:name="com.stoyanoff.kingcrimson.presentation.home.albums.AlbumsFragment"
-              android:label="AlbumsFragment"/>
+              android:label="AlbumsFragment"
+              tools:layout="@layout/fragment_albums">
+        <action android:id="@+id/action_albumsFragment_to_albumDetailsFragment"
+                app:destination="@id/albumDetailsFragment"/>
+    </fragment>
+    <fragment android:id="@+id/albumDetailsFragment"
+              android:name="com.stoyanoff.kingcrimson.presentation.home.albums.albumdetails.AlbumDetailsFragment"
+              android:label="AlbumDetailsFragment"
+              tools:layout="@layout/fragment_album_details">
+        <argument android:name="albumdata" app:argType="com.stoyanoff.kingcrimson.data.model.album.Album"/>
+    </fragment>
 </navigation>

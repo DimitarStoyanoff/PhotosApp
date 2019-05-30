@@ -72,7 +72,8 @@ class AlbumsFragment : BaseViewFragment() {
 
     private fun handleNavigateToDetailsEvent() {
         viewModel.navigateToAlbumDetails.observe(this, Observer {
-            //TODO navigate
+            val action = AlbumsFragmentDirections.actionAlbumsFragmentToAlbumDetailsFragment(it.peekContent())
+            navigateTo(action = action)
         })
     }
 

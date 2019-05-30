@@ -34,7 +34,7 @@ interface RemoteService {
     @GET("albums")
     fun getAlbums(@Query("userId") userId: Int) : Observable<MutableList<Album>>
 
-    @GET("photos}")
+    @GET("photos")
     fun getPhotosInAlbum(@Query("albumId") albumId: Int) : Observable<MutableList<Photo>>
 
 }

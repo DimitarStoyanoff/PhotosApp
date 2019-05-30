@@ -57,7 +57,9 @@ class AlbumsAdapter(
 
         init{
             itemView.setOnClickListener{
-                clickListener?.invoke(album!!)
+                album?.let {
+                    clickListener?.invoke(album!!)
+                }
             }
         }
     }
