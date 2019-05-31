@@ -2,6 +2,7 @@ package com.stoyanoff.kingcrimson.presentation.launch.login
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.stoyanoff.kingcrimson.data.SessionHolder
 import com.stoyanoff.kingcrimson.presentation.common.BaseViewModel
 import com.stoyanoff.kingcrimson.presentation.common.Event
 import com.stoyanoff.kingcrimson.util.Logger
@@ -20,12 +21,12 @@ class LoginViewModel(
     private val loginUseCase: LoginUseCase
 ) : BaseViewModel() {
 
-    val viewState =MutableLiveData<LoginViewState>().apply {
+    val viewState = MutableLiveData<LoginViewState>().apply {
         value = loginViewState
     }
 
     val showErrorMessageEvent = MutableLiveData<Event<String>>()
-    val navigateToHomeEvent =MutableLiveData<Event<Boolean>>()
+    val navigateToHomeEvent = MutableLiveData<Event<Boolean>>()
 
     fun onLoginClicked(userId: String) {
         var id = 0
@@ -53,9 +54,10 @@ class LoginViewModel(
                 error ->
                 showErrorMessageEvent.value = Event("User doesn't exist")
             },
-                onNext = {
-                    it.name?.let {
+                onNext = { user ->
+                    user.name?.let {
                         navigateToHomeEvent.value = Event(true)
+                        SessionHolder.user = user
                     } ?: run {
                         showErrorMessageEvent.value = Event("User doesn't exist") //TODO error handling with error codes
                     }

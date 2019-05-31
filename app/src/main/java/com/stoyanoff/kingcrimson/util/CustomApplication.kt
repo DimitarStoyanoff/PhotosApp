@@ -1,10 +1,7 @@
 package com.stoyanoff.kingcrimson.util
 
 import android.app.Application
-import com.stoyanoff.kingcrimson.inject.appModule
-import com.stoyanoff.kingcrimson.inject.dataModule
-import com.stoyanoff.kingcrimson.inject.presentationModule
-import com.stoyanoff.kingcrimson.inject.useCaseModule
+import com.stoyanoff.kingcrimson.inject.*
 import org.koin.android.ext.android.startKoin
 
 /**
@@ -22,6 +19,7 @@ class CustomApplication : Application(){
         startKoin(this, listOf(
             appModule,
             dataModule,
+            localDataModule,
             useCaseModule,
             presentationModule))
     }

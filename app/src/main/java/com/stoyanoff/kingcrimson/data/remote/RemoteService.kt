@@ -20,21 +20,21 @@ interface RemoteService {
     fun getUser(@Path("userId") userId: Int): Observable<UserResponse>
 
     @GET("posts")
-    fun getPosts(@Query("userId=") userId: Int) : Observable<List<Post>>
+    fun getPosts(@Query("userId") userId: Int) : Observable<MutableList<Post>>
 
     @POST("posts")
-    fun addPost(@Body body: Post)
+    fun addPost(@Body body: Post) : Observable<Post>
 
     @PUT("posts/{postId}")
-    fun updatePost(@Path("postId") postId: Int, @Body body: Post)
+    fun updatePost(@Path("postId") postId: Int, @Body body: Post): Observable<Post>
 
     @DELETE("posts/{postId}")
-    fun deletePost(@Path("postId") postId: Int)
+    fun deletePost(@Path("postId") postId: Int): Observable<Post>
 
     @GET("albums")
-    fun getAlbums(@Query("userId=") userId: Int) : Observable<List<Album>>
+    fun getAlbums(@Query("userId") userId: Int) : Observable<MutableList<Album>>
 
-    @GET("photos}")
-    fun getPhotosInAlbum(@Query("albumId=") albumId: Int) : Observable<List<Photo>>
+    @GET("photos")
+    fun getPhotosInAlbum(@Query("albumId") albumId: Int) : Observable<MutableList<Photo>>
 
 }

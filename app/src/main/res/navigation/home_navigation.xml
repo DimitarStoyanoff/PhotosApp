@@ -6,5 +6,31 @@
     <fragment android:id="@+id/profileFragment"
               android:name="com.stoyanoff.kingcrimson.presentation.home.profile.ProfileFragment"
               android:label="ProfileFragment"
-              tools:layout="@layout/fragment_profile"/>
+              tools:layout="@layout/fragment_profile">
+        <action android:id="@+id/action_profileFragment_to_albumsFragment" app:destination="@id/albumsFragment"/>
+        <action android:id="@+id/action_profileFragment_to_postsFragment" app:destination="@id/postsFragment"/>
+    </fragment>
+    <fragment android:id="@+id/albumsFragment"
+              android:name="com.stoyanoff.kingcrimson.presentation.home.albums.AlbumsFragment"
+              android:label="AlbumsFragment"
+              tools:layout="@layout/fragment_albums">
+        <action android:id="@+id/action_albumsFragment_to_albumDetailsFragment"
+                app:destination="@id/albumDetailsFragment"/>
+    </fragment>
+    <fragment android:id="@+id/albumDetailsFragment"
+              android:name="com.stoyanoff.kingcrimson.presentation.home.albums.albumdetails.AlbumDetailsFragment"
+              android:label="AlbumDetailsFragment"
+              tools:layout="@layout/fragment_album_details">
+        <argument android:name="albumdata" app:argType="com.stoyanoff.kingcrimson.data.model.album.Album"/>
+    </fragment>
+    <fragment android:id="@+id/postsFragment"
+              android:name="com.stoyanoff.kingcrimson.presentation.home.posts.PostsFragment"
+              android:label="PostsFragment"
+              tools:layout="@layout/fragment_posts">
+        <action android:id="@+id/action_postsFragment_to_addPostFragment" app:destination="@id/addPostFragment"/>
+    </fragment>
+    <fragment android:id="@+id/addPostFragment"
+              android:name="com.stoyanoff.kingcrimson.presentation.home.posts.addpost.AddPostFragment"
+              android:label="AddPostFragment"
+              tools:layout="@layout/fragment_add_post"/>
 </navigation>
