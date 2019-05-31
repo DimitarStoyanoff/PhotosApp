@@ -26,7 +26,7 @@ class LoginViewModel(
     }
 
     val showErrorMessageEvent = MutableLiveData<Event<String>>()
-    val navigateToHomeEvent =MutableLiveData<Event<Boolean>>()
+    val navigateToHomeEvent = MutableLiveData<Event<Boolean>>()
 
     fun onLoginClicked(userId: String) {
         var id = 0

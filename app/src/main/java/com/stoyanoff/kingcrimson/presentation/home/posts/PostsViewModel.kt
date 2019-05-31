@@ -25,6 +25,7 @@ class PostsViewModel(
     }
 
     val navigateToAddPost = MutableLiveData<Event<Boolean>>()
+    val navigateToEditPost = MutableLiveData<Event<Post>>()
     private var posts = mutableListOf<Post>()
 
     fun loadData() {
@@ -44,10 +45,7 @@ class PostsViewModel(
                 }
             }
             .subscribeBy (onError = { error ->
-                viewState.value?.let {
-                    val newState = postsViewState.copy(showLoading = false)
-                    viewState.value = newState
-                }
+
             }, onNext = { result ->
                 result?.let {
                     posts = it
@@ -64,10 +62,37 @@ class PostsViewModel(
     }
 
     fun listItemDeleteClicked(item : Post) {
+        item.id?.let {
+            compositeDisposable += dataSource.deletePost(it)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe {
+                    viewState.value?.let {
+                        val newState = postsViewState.copy(showLoading = true)
+                        viewState.value = newState
+                    }
+                }.doOnTerminate {
+                    viewState.value?.let {
+                        val newState = postsViewState.copy(showLoading = false)
+                        viewState.value = newState
+                    }
+                }.subscribeBy(onError = {
+                    viewState.value?.let {
+                        val newState = postsViewState.copy(showLoading = false)
+                        viewState.value = newState
+                    }
+                },onNext = {
+                    posts.remove(item)
+                    viewState.value?.let {
+                        val newState = postsViewState.copy(showLoading = false, data = posts)
+                        viewState.value = newState
+                    }
+                })
+        }
 
     }
 
     fun listItemEditClicked(item : Post) {
-
+        navigateToEditPost.value = Event(item)
     }
 }

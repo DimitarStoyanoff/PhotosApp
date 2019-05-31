@@ -46,10 +46,7 @@ class ProfileViewModel(
                     }
                 }
             }, onError = {
-                viewState.value?.let {
-                    val newState = profileViewState.copy(showLoading = false)
-                    viewState.value = newState
-                }
+
             })
     }
 

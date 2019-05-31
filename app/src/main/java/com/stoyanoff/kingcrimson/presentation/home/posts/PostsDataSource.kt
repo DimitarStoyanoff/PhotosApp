@@ -9,4 +9,5 @@ import io.reactivex.Observable
  */
 interface PostsDataSource {
     fun getPosts() : Observable<MutableList<Post>>
+    fun deletePost(postId: Int) : Observable<Post>
 }

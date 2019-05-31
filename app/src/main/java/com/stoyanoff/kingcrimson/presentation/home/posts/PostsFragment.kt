@@ -91,7 +91,7 @@ class PostsFragment : BaseViewFragment() {
     private fun handleNavigateToAddPost() {
         viewModel.navigateToAddPost.observe(this, Observer {
             it?.let {
-                navigateTo(R.id.action_profileFragment_to_postsFragment)
+                navigateTo(R.id.action_postsFragment_to_addPostFragment)
             }
         })
     }

@@ -26,5 +26,11 @@
     <fragment android:id="@+id/postsFragment"
               android:name="com.stoyanoff.kingcrimson.presentation.home.posts.PostsFragment"
               android:label="PostsFragment"
-              tools:layout="@layout/fragment_posts"/>
+              tools:layout="@layout/fragment_posts">
+        <action android:id="@+id/action_postsFragment_to_addPostFragment" app:destination="@id/addPostFragment"/>
+    </fragment>
+    <fragment android:id="@+id/addPostFragment"
+              android:name="com.stoyanoff.kingcrimson.presentation.home.posts.addpost.AddPostFragment"
+              android:label="AddPostFragment"
+              tools:layout="@layout/fragment_add_post"/>
 </navigation>

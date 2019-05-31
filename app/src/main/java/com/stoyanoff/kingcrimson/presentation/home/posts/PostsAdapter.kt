@@ -46,13 +46,6 @@ class PostsAdapter(
         notifyItemInserted(posts.indexOf(item))
     }
 
-    fun deleteItem(item : Post) {
-        posts.remove(item)
-        notifyItemRemoved(posts.indexOf(item))
-    }
-
-
-
     inner class PostHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private var post : Post? = null

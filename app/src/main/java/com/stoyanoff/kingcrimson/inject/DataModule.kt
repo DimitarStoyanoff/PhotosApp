@@ -6,6 +6,8 @@ import com.stoyanoff.kingcrimson.presentation.home.albums.albumdetails.AlbumDeta
 import com.stoyanoff.kingcrimson.presentation.home.albums.albumdetails.AlbumDetailsRepository
 import com.stoyanoff.kingcrimson.presentation.home.posts.PostsDataSource
 import com.stoyanoff.kingcrimson.presentation.home.posts.PostsRepository
+import com.stoyanoff.kingcrimson.presentation.home.posts.addpost.AddPostDataSource
+import com.stoyanoff.kingcrimson.presentation.home.posts.addpost.AddPostRepository
 import com.stoyanoff.kingcrimson.presentation.home.profile.ProfileDataSource
 import com.stoyanoff.kingcrimson.presentation.home.profile.ProfileRepository
 import com.stoyanoff.kingcrimson.presentation.launch.login.LoginDataSource
@@ -23,4 +25,5 @@ val dataModule = module {
     factory<AlbumDetailsDataSource> {AlbumDetailsRepository(get())}
     factory<PostsDataSource> {PostsRepository(get())}
     factory<ProfileDataSource> {ProfileRepository(get())}
+    factory<AddPostDataSource> { AddPostRepository(get()) }
 }

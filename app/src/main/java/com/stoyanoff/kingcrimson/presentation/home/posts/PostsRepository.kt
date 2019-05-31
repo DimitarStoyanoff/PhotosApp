@@ -12,6 +12,10 @@ import io.reactivex.Observable
 class PostsRepository(
     private val remoteService: RemoteService
 ) : PostsDataSource {
+    override fun deletePost(postId: Int) : Observable<Post> {
+        return remoteService.deletePost(postId)
+    }
+
     override fun getPosts(): Observable<MutableList<Post>> {
         return remoteService.getPosts(SessionHolder.user?.id ?: 0)
     }
