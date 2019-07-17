@@ -15,10 +15,9 @@ import com.stoyanoff.kingcrimson.data.model.photo.Photo
  * Created by L on 30/05/2019.
  *  Copyright (c) 2017 Centroida. All rights reserved.
  */
-class PhotosAdapter(
-    var clickListener: ((Photo) -> Unit)? = null
-) : RecyclerView.Adapter<PhotosAdapter.PhotoHolder>() {
+class PhotosAdapter : RecyclerView.Adapter<PhotosAdapter.PhotoHolder>() {
 
+    lateinit var clickListener: ((Photo) -> Unit)
     private var photos = mutableListOf<Photo>()
 
 

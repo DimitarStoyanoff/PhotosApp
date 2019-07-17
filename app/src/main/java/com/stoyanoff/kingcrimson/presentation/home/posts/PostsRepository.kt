@@ -4,6 +4,7 @@ import com.stoyanoff.kingcrimson.data.SessionHolder
 import com.stoyanoff.kingcrimson.data.model.post.Post
 import com.stoyanoff.kingcrimson.data.remote.RemoteService
 import io.reactivex.Observable
+import retrofit2.Response
 
 /**
  * Created by L on 30/05/2019.
@@ -12,11 +13,11 @@ import io.reactivex.Observable
 class PostsRepository(
     private val remoteService: RemoteService
 ) : PostsDataSource {
-    override fun deletePost(postId: Int) : Observable<Post> {
+    override fun deletePost(postId: Int) : Observable<Response<Post>> {
         return remoteService.deletePost(postId)
     }
 
-    override fun getPosts(): Observable<MutableList<Post>> {
+    override fun getPosts(): Observable<Response<MutableList<Post>>> {
         return remoteService.getPosts(SessionHolder.user?.id ?: 0)
     }
 

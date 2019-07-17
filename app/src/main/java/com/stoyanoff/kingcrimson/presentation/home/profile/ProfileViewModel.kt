@@ -39,9 +39,9 @@ class ProfileViewModel(
                     viewState.value = newState
                 }
             }.subscribeBy (onNext = { result ->
-                result?.let {
+                result.body()?.let {body ->
                     viewState.value?.let {
-                        val newState = profileViewState.copy(showLoading = false, profile = result)
+                        val newState = profileViewState.copy(showLoading = false, profile = body)
                         viewState.value = newState
                     }
                 }

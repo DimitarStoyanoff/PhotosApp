@@ -7,6 +7,7 @@ import com.stoyanoff.kingcrimson.data.model.photo.Photo
 import com.stoyanoff.kingcrimson.data.model.post.Post
 import com.stoyanoff.kingcrimson.data.model.user.UserResponse
 import io.reactivex.Observable
+import retrofit2.Response
 import retrofit2.http.*
 
 /**
@@ -17,24 +18,24 @@ import retrofit2.http.*
 interface RemoteService {
 
     @GET("users/{userId}")
-    fun getUser(@Path("userId") userId: Int): Observable<UserResponse>
+    fun getUser(@Path("userId") userId: Int): Observable<Response<UserResponse>>
 
     @GET("posts")
-    fun getPosts(@Query("userId") userId: Int) : Observable<MutableList<Post>>
+    fun getPosts(@Query("userId") userId: Int) : Observable<Response<MutableList<Post>>>
 
     @POST("posts")
-    fun addPost(@Body body: Post) : Observable<Post>
+    fun addPost(@Body body: Post) : Observable<Response<Post>>
 
     @PUT("posts/{postId}")
-    fun updatePost(@Path("postId") postId: Int, @Body body: Post): Observable<Post>
+    fun updatePost(@Path("postId") postId: Int, @Body body: Post): Observable<Response<Post>>
 
     @DELETE("posts/{postId}")
-    fun deletePost(@Path("postId") postId: Int): Observable<Post>
+    fun deletePost(@Path("postId") postId: Int): Observable<Response<Post>>
 
     @GET("albums")
-    fun getAlbums(@Query("userId") userId: Int) : Observable<MutableList<Album>>
+    fun getAlbums(@Query("userId") userId: Int) : Observable<Response<MutableList<Album>>>
 
     @GET("photos")
-    fun getPhotosInAlbum(@Query("albumId") albumId: Int) : Observable<MutableList<Photo>>
+    fun getPhotosInAlbum(@Query("albumId") albumId: Int) : Observable<Response<MutableList<Photo>>>
 
 }
