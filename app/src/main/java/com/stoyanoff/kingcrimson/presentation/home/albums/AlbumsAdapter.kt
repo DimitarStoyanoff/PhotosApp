@@ -12,11 +12,9 @@ import com.stoyanoff.kingcrimson.data.model.album.Album
  * Created by L on 30/05/2019.
  *  Copyright (c) 2017 Centroida. All rights reserved.
  */
-class AlbumsAdapter(
-    var clickListener: ((Album) -> Unit)? = null
-) : RecyclerView.Adapter<AlbumsAdapter.AlbumHolder>() {
+class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumHolder>() {
 
-
+    lateinit var clickListener: ((Album) -> Unit)
     private var albums = mutableListOf<Album>()
 
 

@@ -44,10 +44,10 @@ class AlbumDetailsViewModel(
             }
             .subscribeBy (onError = { error ->
             }, onNext = { result ->
-                result?.let {
-                    photos = it
+                result.body()?.let {body ->
+                    photos = body
                     viewState.value?.let {
-                        val newState = albumDetailsViewState.copy(showLoading = false, results = result)
+                        val newState = albumDetailsViewState.copy(showLoading = false, results = body)
                         viewState.value = newState
                     }
                 }

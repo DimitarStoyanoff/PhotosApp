@@ -2,6 +2,7 @@ package com.stoyanoff.kingcrimson.presentation.home.albums
 
 import com.stoyanoff.kingcrimson.data.model.album.Album
 import io.reactivex.Observable
+import retrofit2.Response
 
 
 /**
@@ -9,5 +10,5 @@ import io.reactivex.Observable
  *  Copyright (c) 2017 Centroida. All rights reserved.
  */
 interface AlbumsDataSource {
-    fun getAlbums() : Observable<MutableList<Album>>
+    fun getAlbums() : Observable<Response<MutableList<Album>>>
 }

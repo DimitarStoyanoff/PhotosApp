@@ -54,13 +54,16 @@ class LoginViewModel(
                 error ->
                 showErrorMessageEvent.value = Event("User doesn't exist")
             },
-                onNext = { user ->
-                    user.name?.let {
-                        navigateToHomeEvent.value = Event(true)
-                        SessionHolder.user = user
-                    } ?: run {
-                        showErrorMessageEvent.value = Event("User doesn't exist") //TODO error handling with error codes
+                onNext = { response ->
+                    response.body()?.let {body ->
+                        body.name?.let {
+                            navigateToHomeEvent.value = Event(true)
+                            SessionHolder.user = body
+                        } ?: run {
+                            showErrorMessageEvent.value = Event("User doesn't exist") //TODO error handling with error codes
+                        }
                     }
+
                 })
     }
     //TODO disable button while processing request

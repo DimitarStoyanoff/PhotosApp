@@ -19,43 +19,49 @@ class AlbumsViewModel(
 ) : BaseViewModel() {
 
 
-    val viewState = MutableLiveData<AlbumsViewState>().apply {
-        value = albumsViewState
+    internal val viewState = MutableLiveData<AlbumsViewState>().apply {
+        postValue(albumsViewState)
     }
 
-    val navigateToAlbumDetails = MutableLiveData<Event<Album>>()
+    internal val navigateToAlbumDetails = MutableLiveData<Event<Album>>()
     private var albums = mutableListOf<Album>()
 
-    fun loadData() {
+    internal fun loadData() {
         compositeDisposable += dataSource.getAlbums()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
-                viewState.value?.let {
-                    val newState = albumsViewState.copy(showLoading = true)
-                    viewState.value = newState
-                }
+                toggleLoadingState(true)
             }
             .doOnTerminate {
-                viewState.value?.let {
-                    val newState = albumsViewState.copy(showLoading = false)
-                    viewState.value = newState
-                }
+                toggleLoadingState(false)
+
             }
             .subscribeBy (onError = { error ->
             }, onNext = { result ->
-                result?.let {
-                    albums = it
-                    viewState.value?.let {
-                        val newState = albumsViewState.copy(showLoading = false, results = result)
-                        viewState.value = newState
-                    }
+                result.body()?.let { body ->
+                    showResults(body)
                 }
+                //TODO handle different failed responses
             })
     }
 
+    internal fun toggleLoadingState(showLoading: Boolean) {
+        viewState.value?.let {
+            val newState = albumsViewState.copy(showLoading = showLoading)
+            viewState.value = newState
+        }
+    }
 
-    fun listItemClicked(item : Album) {
+    internal fun showResults(albums: MutableList<Album>) {
+        viewState.value?.let {
+            val newState = albumsViewState.copy(showLoading = false, results = albums)
+            viewState.value = newState
+        }
+    }
+
+
+    internal fun listItemClicked(item : Album) {
         navigateToAlbumDetails.value = Event(item)
     }
 }

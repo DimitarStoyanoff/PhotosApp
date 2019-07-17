@@ -5,6 +5,7 @@ import com.stoyanoff.kingcrimson.data.model.login.LoginResponse
 import com.stoyanoff.kingcrimson.data.model.user.UserResponse
 import com.stoyanoff.kingcrimson.data.remote.RemoteService
 import io.reactivex.Observable
+import retrofit2.Response
 
 /**
  * Created by L on 28/05/2019.
@@ -14,7 +15,7 @@ class LoginRepository(
     private val remoteService: RemoteService
 ) : LoginDataSource {
 
-    override fun login(userId: Int): Observable<UserResponse> {
+    override fun login(userId: Int): Observable<Response<UserResponse>> {
         return remoteService.getUser(userId)
     }
 }

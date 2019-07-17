@@ -14,17 +14,16 @@ import com.stoyanoff.kingcrimson.data.model.post.Post
  *  Copyright (c) 2017 Centroida. All rights reserved.
  */
 
-class PostsAdapter(
-    var editClickListener: ((Post) -> Unit)? = null,
-    var deleteClickListener: ((Post) -> Unit)? = null
-) : RecyclerView.Adapter<PostsAdapter.PostHolder>() {
+class PostsAdapter : RecyclerView.Adapter<PostsAdapter.PostHolder>() {
 
-
+    lateinit var editClickListener: ((Post) -> Unit)
+    lateinit var deleteClickListener: ((Post) -> Unit)
     private var posts = mutableListOf<Post>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.post_list_item,parent,false)
+
         return PostHolder(view)
     }
 

@@ -47,10 +47,10 @@ class PostsViewModel(
             .subscribeBy (onError = { error ->
 
             }, onNext = { result ->
-                result?.let {
-                    posts = it
+                result.body()?.let {body ->
+                    posts = body
                     viewState.value?.let {
-                        val newState = postsViewState.copy(showLoading = false, data = result)
+                        val newState = postsViewState.copy(showLoading = false, data = body)
                         viewState.value = newState
                     }
                 }

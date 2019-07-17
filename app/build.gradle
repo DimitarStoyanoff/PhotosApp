@@ -41,6 +41,10 @@ android {
     lintOptions {
         disable "ResourceType"
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -68,6 +72,9 @@ dependencies {
 
     // JUnit
     testImplementation deps.junit
+    testImplementation deps.mockito
+    testImplementation deps.hamcrest
+    testImplementation deps.mockito_inline
 
     // Koin
     implementation deps.koin

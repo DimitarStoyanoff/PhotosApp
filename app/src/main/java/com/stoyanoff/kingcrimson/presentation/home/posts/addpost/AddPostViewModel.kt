@@ -41,6 +41,7 @@ class AddPostViewModel (
             }.subscribeBy(onError = {
                 showMessageEvent.value = Event("Something went wrong") //TODO extract resources, move to view layer
             },onNext = {
+                it.code() //TODO
                 navigateBackEvent.value = Event(true)
                 showMessageEvent.value = Event("Post added!")
             })

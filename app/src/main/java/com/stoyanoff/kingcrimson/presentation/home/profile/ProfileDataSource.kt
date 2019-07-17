@@ -2,6 +2,7 @@ package com.stoyanoff.kingcrimson.presentation.home.profile
 
 import com.stoyanoff.kingcrimson.data.model.user.UserResponse
 import io.reactivex.Observable
+import retrofit2.Response
 
 
 /**
@@ -9,5 +10,5 @@ import io.reactivex.Observable
  *  Copyright (c) 2017 Centroida. All rights reserved.
  */
 interface ProfileDataSource {
-    fun getProfile() : Observable<UserResponse>
+    fun getProfile() : Observable<Response<UserResponse>>
 }

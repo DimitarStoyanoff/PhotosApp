@@ -3,6 +3,7 @@ package com.stoyanoff.kingcrimson.presentation.home.albums.albumdetails
 import com.stoyanoff.kingcrimson.data.model.photo.Photo
 import com.stoyanoff.kingcrimson.data.remote.RemoteService
 import io.reactivex.Observable
+import retrofit2.Response
 
 /**
  * Created by L on 30/05/2019.
@@ -11,7 +12,7 @@ import io.reactivex.Observable
 class AlbumDetailsRepository (
     private val remoteService: RemoteService
 ) : AlbumDetailsDataSource {
-    override fun getPhotos(albumId: Int): Observable<MutableList<Photo>> {
+    override fun getPhotos(albumId: Int): Observable<Response<MutableList<Photo>>> {
         return remoteService.getPhotosInAlbum(albumId)
     }
 
