@@ -1,6 +1,7 @@
 package com.stoyanoff.kingcrimson.presentation.home.posts.addpost
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.stoyanoff.kingcrimson.data.model.post.Post
 import com.stoyanoff.kingcrimson.presentation.common.BaseViewModel
 import com.stoyanoff.kingcrimson.presentation.common.Event
@@ -8,6 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
 /**
  * Created by L on 31/05/2019.
@@ -25,26 +27,13 @@ class AddPostViewModel (
     }
 
     fun postButtonClicked(title : String, body : String) {
-        compositeDisposable += dataSource.addPost(title,body)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe {
-                viewState.value?.let {
-                    val newState = addPostViewState.copy(showLoading = true)
-                    viewState.value = newState
-                }
-            }.doOnTerminate {
-                viewState.value?.let {
-                    val newState = addPostViewState.copy(showLoading = false)
-                    viewState.value = newState
-                }
-            }.subscribeBy(onError = {
-                showMessageEvent.value = Event("Something went wrong") //TODO extract resources, move to view layer
-            },onNext = {
-                it.code() //TODO
-                navigateBackEvent.value = Event(true)
-                showMessageEvent.value = Event("Post added!")
-            })
+        viewState.value = addPostViewState.copy(showLoading = true)
+        viewModelScope.launch {
+            dataSource.addPost(title,body)
+            navigateBackEvent.value = Event(true)
+            showMessageEvent.value = Event("Post added!")
+            viewState.value = addPostViewState.copy(showLoading = false)
+        }
     }
 
 }

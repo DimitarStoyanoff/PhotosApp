@@ -7,6 +7,7 @@ import com.stoyanoff.kingcrimson.data.model.photo.Photo
 import com.stoyanoff.kingcrimson.data.model.post.Post
 import com.stoyanoff.kingcrimson.data.model.user.UserResponse
 import io.reactivex.Observable
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -24,7 +25,7 @@ interface RemoteService {
     fun getPosts(@Query("userId") userId: Int) : Observable<Response<MutableList<Post>>>
 
     @POST("posts")
-    fun addPost(@Body body: Post) : Observable<Response<Post>>
+    suspend fun addPost(@Body body: Post) : Post
 
     @PUT("posts/{postId}")
     fun updatePost(@Path("postId") postId: Int, @Body body: Post): Observable<Response<Post>>

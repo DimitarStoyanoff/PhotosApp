@@ -2,6 +2,7 @@ package com.stoyanoff.kingcrimson.presentation.home.posts.addpost
 
 import com.stoyanoff.kingcrimson.data.model.post.Post
 import io.reactivex.Observable
+import retrofit2.Call
 import retrofit2.Response
 
 /**
@@ -9,5 +10,5 @@ import retrofit2.Response
  *  Copyright (c) 2017 Centroida. All rights reserved.
  */
 interface AddPostDataSource {
-    fun addPost(title: String, body: String) : Observable<Response<Post>>
+    suspend fun addPost(title: String, body: String) : Post
 }

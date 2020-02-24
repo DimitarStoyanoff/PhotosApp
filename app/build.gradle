@@ -57,6 +57,7 @@ dependencies {
     implementation deps.androidx.appcompat
     implementation deps.androidx.constraintlayout
     implementation deps.androidx.ktx
+    implementation deps.androidx.lifecycle_view_model
 
     // Espresso
     androidTestImplementation deps.androidx.espresso.core
@@ -105,4 +106,8 @@ dependencies {
     implementation deps.rx.rxandroid
     implementation deps.rx.rxjava
     implementation deps.rx.rxkotlin
+
+    //Coroutines
+    implementation deps.kotlin.coroutines_core
+    implementation deps.kotlin.coroutines_android
 }
