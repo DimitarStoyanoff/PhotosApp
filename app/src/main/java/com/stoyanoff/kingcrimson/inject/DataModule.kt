@@ -23,7 +23,7 @@ val dataModule = module {
     factory<LoginDataSource> { LoginRepository(get()) }
     factory<AlbumsDataSource> { AlbumsRepository(get()) }
     factory<AlbumDetailsDataSource> {AlbumDetailsRepository(get())}
-    factory<PostsDataSource> {PostsRepository(get())}
+    factory<PostsDataSource> {PostsRepository(get(),get())}
     factory<ProfileDataSource> {ProfileRepository(get())}
     factory<AddPostDataSource> { AddPostRepository(get()) }
 }

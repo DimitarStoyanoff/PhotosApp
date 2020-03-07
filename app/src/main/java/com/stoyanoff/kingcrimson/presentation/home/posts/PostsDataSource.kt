@@ -1,6 +1,7 @@
 package com.stoyanoff.kingcrimson.presentation.home.posts
 
 import com.stoyanoff.kingcrimson.data.model.post.Post
+import com.stoyanoff.kingcrimson.data.remote.SafeResponse
 import io.reactivex.Observable
 import retrofit2.Response
 
@@ -9,6 +10,6 @@ import retrofit2.Response
  *  Copyright (c) 2017 Centroida. All rights reserved.
  */
 interface PostsDataSource {
-    fun getPosts() : Observable<Response<MutableList<Post>>>
+    suspend fun getPosts() : SafeResponse<MutableList<Post>>
     fun deletePost(postId: Int) : Observable<Response<Post>>
 }

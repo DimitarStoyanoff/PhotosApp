@@ -1,13 +1,18 @@
 package com.stoyanoff.kingcrimson.presentation.home.posts
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
+import androidx.lifecycle.switchMap
+import androidx.lifecycle.viewModelScope
 import com.stoyanoff.kingcrimson.data.model.post.Post
+import com.stoyanoff.kingcrimson.data.remote.SafeResponse
 import com.stoyanoff.kingcrimson.presentation.common.BaseViewModel
 import com.stoyanoff.kingcrimson.presentation.common.Event
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
 /**
  * Created by L on 30/05/2019.
@@ -19,9 +24,15 @@ class PostsViewModel(
     private val dataSource: PostsDataSource
 ) : BaseViewModel() {
 
-
     val viewState = MutableLiveData<PostsViewState>().apply {
         value = postsViewState
+    }
+    private val input = MutableLiveData<SafeResponse<MutableList<Post>>>()
+    val postsResponseLiveData = input.switchMap {
+        liveData {
+            emit(SafeResponse.loading(null))
+            emit(it)
+        }
     }
 
     val navigateToAddPost = MutableLiveData<Event<Boolean>>()
@@ -29,32 +40,13 @@ class PostsViewModel(
     private var posts = mutableListOf<Post>()
 
     fun loadData() {
-        compositeDisposable += dataSource.getPosts()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe {
-                viewState.value?.let {
-                    val newState = postsViewState.copy(showLoading = true)
-                    viewState.value = newState
-                }
+        viewModelScope.launch {
+            val result = dataSource.getPosts()
+            input.value = result
+            result.data?.let {
+                posts = it
             }
-            .doOnTerminate {
-                viewState.value?.let {
-                    val newState = postsViewState.copy(showLoading = false)
-                    viewState.value = newState
-                }
-            }
-            .subscribeBy (onError = { error ->
-
-            }, onNext = { result ->
-                result.body()?.let {body ->
-                    posts = body
-                    viewState.value?.let {
-                        val newState = postsViewState.copy(showLoading = false, data = body)
-                        viewState.value = newState
-                    }
-                }
-            })
+        }
     }
 
     fun addButtonClicked() {

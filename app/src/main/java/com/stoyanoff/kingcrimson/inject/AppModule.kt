@@ -2,6 +2,7 @@ package com.stoyanoff.kingcrimson.inject
 
 import com.stoyanoff.kingcrimson.BuildConfig
 import com.stoyanoff.kingcrimson.data.remote.RemoteService
+import com.stoyanoff.kingcrimson.data.remote.ResponseHandler
 import com.stoyanoff.kingcrimson.data.remote.RetrofitClient
 import org.koin.dsl.module.module
 
@@ -19,4 +20,5 @@ val appModule = module {
             .baseUrl(BuildConfig.BASE_URL)
             .createService(RemoteService::class.java)
     }
+    factory { ResponseHandler() }
 }

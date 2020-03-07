@@ -1,13 +1,10 @@
 package com.stoyanoff.kingcrimson.data.remote
 
 import com.stoyanoff.kingcrimson.data.model.album.Album
-import com.stoyanoff.kingcrimson.data.model.login.LoginRequest
-import com.stoyanoff.kingcrimson.data.model.login.LoginResponse
 import com.stoyanoff.kingcrimson.data.model.photo.Photo
 import com.stoyanoff.kingcrimson.data.model.post.Post
 import com.stoyanoff.kingcrimson.data.model.user.UserResponse
 import io.reactivex.Observable
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -22,7 +19,7 @@ interface RemoteService {
     fun getUser(@Path("userId") userId: Int): Observable<Response<UserResponse>>
 
     @GET("posts")
-    fun getPosts(@Query("userId") userId: Int) : Observable<Response<MutableList<Post>>>
+    suspend fun getPosts(@Query("userId") userId: Int) : MutableList<Post>
 
     @POST("posts")
     suspend fun addPost(@Body body: Post) : Post

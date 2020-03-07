@@ -4,14 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.stoyanoff.kingcrimson.R
+import com.stoyanoff.kingcrimson.data.remote.Status
 import com.stoyanoff.kingcrimson.presentation.common.BaseViewFragment
-import com.stoyanoff.kingcrimson.presentation.home.albums.AlbumsAdapter
-import com.stoyanoff.kingcrimson.presentation.home.albums.AlbumsFragmentDirections
-import com.stoyanoff.kingcrimson.presentation.home.albums.AlbumsViewModel
-import kotlinx.android.synthetic.main.fragment_albums.*
 import kotlinx.android.synthetic.main.fragment_albums.progressBar
 import kotlinx.android.synthetic.main.fragment_albums.recycler_view
 import kotlinx.android.synthetic.main.fragment_posts.*
@@ -78,6 +76,22 @@ class PostsFragment : BaseViewFragment() {
                 it.data?.let {posts ->
                     postsAdapter.setItems(posts)
                 }
+            }
+        })
+
+        viewModel.postsResponseLiveData.observe(this, Observer {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    toggleLoading(false)
+                    it.data?.let {posts ->
+                        postsAdapter.setItems(posts)
+                    }
+                }
+                Status.ERROR -> {
+                    toggleLoading(false)
+                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                }
+                Status.LOADING -> toggleLoading(true)
             }
         })
     }

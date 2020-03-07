@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'androidx.navigation.safeargs'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 androidExtensions {
@@ -12,6 +12,10 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
     compileSdkVersion build_versions.target_sdk
@@ -58,6 +62,8 @@ dependencies {
     implementation deps.androidx.constraintlayout
     implementation deps.androidx.ktx
     implementation deps.androidx.lifecycle_view_model
+    implementation deps.androidx.lifecycle_live_data
+    kapt deps.androidx.lifecycle_compiler
 
     // Espresso
     androidTestImplementation deps.androidx.espresso.core
